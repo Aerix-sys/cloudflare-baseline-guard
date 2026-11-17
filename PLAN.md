@@ -11,9 +11,13 @@
 - Pinned, read-only GitHub Actions workflow that verifies committed demo reports.
 - Four generated reports in `evidence/`.
 
-## Requires an external account or a real domain
+## Publication
 
-- Publish the repository to GitHub and observe the workflow run.
+- Private repository: `Aerix-sys/cloudflare-baseline-guard`.
+- GitHub Actions `verify` job passed and uploaded the four demo reports.
+
+## Optional real-world extension
+
 - Connect a real Cloudflare zone for live configuration evidence.
 
 The offline educational version does not claim real DDoS resistance.
