@@ -1,6 +1,6 @@
 # DDoS defense lab
 
-This project models a Cloudflare-protected web application. The **DDoS readiness** buttons use JSON fixtures; they do not inspect or modify a real zone. A passing demo proves that the policy evaluator works on the example, not that a site is protected.
+The dashboard offers two JSON fixtures and a read-only audit of a real Cloudflare zone. The live audit reads zone status, DNS proxy flags, rate limiting rules, and bot management settings. It infers edge mitigation from an active zone and proxied web records. It cannot verify origin isolation or prove resistance to an attack.
 
 ## Layered architecture
 
@@ -18,9 +18,13 @@ Visitors → Cloudflare proxied DNS → automatic DDoS mitigation → targeted r
 | Rate limit on sensitive endpoints | Protect login and expensive API routes from application-layer abuse | Rule definition, test request, and false-positive review |
 | Local resource bounds | Limit work per client and concurrent audits after edge filtering | `limits.py`, server timeout/body cap, unit tests |
 
-Cloudflare Free currently includes one rate limiting rule. In a real deployment, choose the most expensive or abuse-prone path and set a threshold based on normal traffic. Start with observation, test legitimate users and automated clients, then enable a challenge or block action. Do not apply a blanket low threshold to the whole site.
+The Cloudflare Free plan includes a limited number of rate limiting rules; check the current plan limits before configuring one. In a real deployment, choose the most expensive or abuse-prone path and set a threshold based on normal traffic. Start with observation, test legitimate users and automated clients, then enable a challenge or block action. Do not apply a blanket low threshold to the whole site.
 
 Bot Fight Mode can add protection for some sites, but it may challenge legitimate API and mobile clients and cannot be scoped to a path on Free. Treat it as a decision after reviewing traffic, not a mandatory pass/fail control.
+
+## Live audit
+
+Run `PYTHONPATH=src python3 -m cfguard.live --zone-id "$CF_ZONE_ID" --hostname www.example.com`. Add more `--hostname` flags as needed. A `PASS` for edge protection means the selected web DNS records are proxied and the zone is active; it is a configuration inference, not an attack test. A `WARN` means an optional rate limiting or bot control is absent. `UNKNOWN` means evidence is missing, inaccessible, or cannot be determined from the API. Review every rule expression and threshold manually. See [DOMAIN_SETUP.md](DOMAIN_SETUP.md) for setup.
 
 ## Local app hardening
 

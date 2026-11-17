@@ -2,7 +2,7 @@
 
 ## Assets and trust boundaries
 
-- The Cloudflare API token can read zone settings. It is supplied through an environment variable and is never written to the report.
+- The Cloudflare API token can read zone settings, DNS records, rate limiting rules, and bot configuration. It is supplied through an environment variable and is never written to the report.
 - The zone configuration is retrieved over HTTPS from the Cloudflare API.
 - GitHub Actions uses an environment secret only in the manually triggered live job. Pull requests run against fixtures.
 - The web app listens only on `127.0.0.1` and checks Host, Origin, and a per-server request token before running an audit. It does not accept a Cloudflare token from the browser.
@@ -22,4 +22,4 @@
 
 ## Limits
 
-The live audit checks four zone settings only. The DDoS readiness demo evaluates manually supplied fixtures and does not inspect DNS records, WAF rules, origin behavior, or account permissions. A passing result does not prove the application or origin is secure. The live audit has not been verified against a user account in this repository.
+The TLS audit checks four zone settings. The DDoS audit checks zone, DNS, rate limiting, and bot configuration; it cannot verify origin isolation or actual attack resistance. Optional API failures are reported as `UNKNOWN`. A passing result does not prove the application or origin is secure. Neither live audit has been verified against a real user zone in this repository.

@@ -17,7 +17,7 @@ Open `http://127.0.0.1:8765`.
 1. **Baseline, 30 seconds:** Click **Безопасный пример**. Show four passes. Explain that the policy is explicit and read-only.
 2. **Finding, 45 seconds:** Click **Показать проблемы**. Show failed HTTPS redirect, origin TLS, minimum TLS, and TLS 1.3. Download the Markdown report.
 3. **DDoS architecture, 60 seconds:** Click **Найти слабые места**. Explain that an active zone alone does not protect an unproxied web endpoint or a directly reachable origin. Click **Защищённый пример** to compare.
-4. **DevSecOps, 45 seconds:** Show `tests/`, `.github/workflows/audit.yml`, and generated `demo-reports/`. Explain that the CI job is offline and the live job is an explicit opt-in.
+4. **DevSecOps, 45 seconds:** Show `tests/`, `.github/workflows/audit.yml`, and generated `demo-reports/`. Explain that CI verifies offline evidence and the optional live job reads both TLS and DDoS configuration. With a zone, show the **Проверить мою зону** button and explain that origin isolation remains `UNKNOWN` until manually verified.
 
 ## Expected results
 

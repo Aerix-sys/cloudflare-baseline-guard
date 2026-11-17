@@ -4,4 +4,5 @@ __pycache__/
 .venv/
 report.md
 live-report.md
+live-ddos-report.md
 demo-reports/

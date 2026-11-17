@@ -1,23 +1,14 @@
 # Project status
 
-## Complete for the offline portfolio scope
+## Implemented
 
-- Local web dashboard and CLI.
-- Four live-readable TLS/HTTPS baseline checks.
-- Two offline DDoS architecture scenarios with five controls.
-- Request limits and concurrency bounds for the local app.
-- Security model, architecture diagram, case study, and demo walkthrough.
-- Unit and HTTP integration tests.
-- Pinned, read-only GitHub Actions workflow that verifies committed demo reports.
-- Four generated reports in `evidence/`.
+- Local dashboard and CLI for four live TLS/HTTPS zone settings.
+- Read-only live DDoS posture audit: zone status, proxied DNS for selected hosts, inferred edge protection, active rate limiting rules, and bot settings.
+- Explicit `UNKNOWN` for origin isolation and data the token cannot access.
+- Offline DDoS architecture fixtures, deterministic reports, unit and HTTP integration tests.
+- Pinned GitHub Actions verification; live audit is manually triggered with a scoped token.
+- Security model, case study, demo guide, and [domain onboarding](DOMAIN_SETUP.md).
 
-## Publication
+## Real-world validation
 
-- Private repository: `Aerix-sys/cloudflare-baseline-guard`.
-- GitHub Actions `verify` job passed and uploaded the four demo reports.
-
-## Optional real-world extension
-
-- Connect a real Cloudflare zone for live configuration evidence.
-
-The offline educational version does not claim real DDoS resistance.
+No real zone is connected yet. The API client is tested with mocked responses, but a production zone and origin are needed to validate Cloudflare behavior and complete the origin-isolation check.

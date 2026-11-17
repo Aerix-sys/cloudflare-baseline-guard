@@ -13,6 +13,7 @@ from urllib.parse import urlsplit
 from .cli import evaluate, fetch_settings, markdown_report
 from .ddos import evaluate_ddos
 from .limits import SlidingWindowLimiter
+from .live import CloudflareAPIError, audit_live_ddos
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -31,6 +32,9 @@ def audit(mode: str, token: str = "", zone_id: str = "") -> dict:
         settings = fetch_settings(zone_id, token)
         source = "Cloudflare API"
         checks = evaluate(settings)
+    elif mode == "live_ddos":
+        hostnames = [item.strip() for item in os.environ.get("CF_HOSTNAMES", "").split(",") if item.strip()]
+        return audit_live_ddos(zone_id, token, hostnames or None)
     else:
         raise ValueError("Unknown audit mode")
     return {
@@ -113,7 +117,7 @@ def make_handler(csrf_token: str):
                     self._json(200, result)
                 finally:
                     AUDIT_SLOTS.release()
-            except (OSError, ValueError, json.JSONDecodeError, urllib.error.URLError) as error:
+            except (OSError, ValueError, json.JSONDecodeError, urllib.error.URLError, CloudflareAPIError) as error:
                 self._json(400, {"error": str(error)})
 
         def log_message(self, format_string: str, *args) -> None:
