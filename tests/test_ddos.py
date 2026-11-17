@@ -1,5 +1,6 @@
 import unittest
 import tempfile
+import json
 from pathlib import Path
 
 from cfguard.ddos import evaluate_ddos
@@ -26,6 +27,10 @@ class DDoSTests(unittest.TestCase):
             paths = generate(Path(directory))
             self.assertEqual(len(paths), 4)
             self.assertTrue(all(path.exists() and "Result:" in path.read_text() for path in paths))
+
+    def test_public_demo_matches_evaluator(self):
+        data = json.loads(Path("site/data.json").read_text(encoding="utf-8"))
+        self.assertEqual(data, {mode: audit(mode) for mode in ("secure", "insecure", "ddos_secure", "ddos_insecure")})
 
 
 if __name__ == "__main__":

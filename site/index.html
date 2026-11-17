@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1220">
+  <title>Cloudflare Baseline Guard</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">◇</span><span>BASELINE<span class="brand-light">GUARD</span></span></div>
+      <div class="side-label">WORKSPACE</div>
+      <nav aria-label="Навигация"><a class="nav-item active" href="#overview"><span class="nav-icon">▦</span> Обзор</a><a class="nav-item" href="#checks"><span class="nav-icon">◈</span> Проверки</a><a class="nav-item" href="#about"><span class="nav-icon">≡</span> О проекте</a></nav>
+      <div class="sidebar-bottom"><div class="status-dot"></div><div><strong>Публичное демо</strong><small>Только примеры без токена</small></div></div>
+    </aside>
+    <main>
+      <header class="topbar"><div class="crumb">Cloud Security <span>/</span> Аудит конфигурации</div><div class="top-pill"><span class="pulse"></span> READ ONLY</div></header>
+      <div class="content" id="overview">
+        <div class="eyebrow">SECURITY POSTURE / CLOUDFLARE</div>
+        <section class="hero"><div><h1>Контроль безопасности<br><em>под вашим управлением.</em></h1><p>Посмотрите воспроизводимые примеры аудита TLS и DDoS. Для проверки своей зоны запустите приложение из репозитория локально.</p></div><div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="shield">◇<span>✓</span></div></div></section>
+
+        <section class="run-panel" aria-labelledby="run-title"><div class="run-intro"><div class="section-kicker">01 / ЗАПУСК</div><h2 id="run-title">Выберите сценарий проверки</h2><p>Эти сценарии показывают результаты на подготовленных данных. Для реального аудита откройте <a href="https://github.com/Aerix-sys/cloudflare-baseline-guard">репозиторий и инструкцию</a>.</p></div><div class="actions"><button class="primary" data-mode="insecure"><span>▶</span> Показать проблемы</button><button class="secondary" data-mode="secure">Безопасный пример</button></div></section>
+        <section class="run-panel ddos-panel" aria-labelledby="ddos-title"><div class="run-intro"><div class="section-kicker">DDoS / АУДИТ ЗОНЫ</div><h2 id="ddos-title">Готовность к DDoS</h2><p>Примеры показывают, почему одной активной зоны недостаточно. Реальный аудит DNS-прокси, ограничений запросов и защиты от ботов доступен в локальной версии.</p></div><div class="actions"><button class="primary" data-mode="ddos_insecure"><span>▶</span> Найти слабые места</button><button class="secondary" data-mode="ddos_secure">Защищённый пример</button></div></section>
+
+        <section class="results" id="checks" aria-live="polite"><div class="section-head"><div><div class="section-kicker">02 / РЕЗУЛЬТАТЫ</div><h2>Итоги аудита</h2></div><button id="download" class="download" disabled>↓ Скачать Markdown</button></div><div id="empty" class="empty"><div class="empty-icon">◎</div><strong>Проверка ещё не запущена</strong><span>Выберите сценарий выше, чтобы увидеть результаты.</span></div><div id="result-content" hidden><div class="summary"><div class="score"><span id="score-number">—</span><span class="score-divider">/</span><span id="score-total">4</span><small>проверок пройдено</small></div><div class="summary-copy"><span id="summary-badge" class="badge">РЕЗУЛЬТАТ</span><h3 id="summary-title"></h3><p id="summary-description"></p><span id="source-label" class="source"></span></div></div><div id="check-list" class="check-list"></div></div><div id="error" class="error" hidden></div></section>
+
+        <section id="about" class="about"><div class="section-kicker">03 / ПОДХОД</div><h2>Что именно мы проверяем</h2><div class="about-grid"><article><span class="about-num">01</span><h3>Транспорт</h3><p>HTTPS-редирект, минимальная версия TLS и TLS 1.3.</p></article><article><span class="about-num">02</span><h3>Соединение с origin</h3><p>Режим Full (strict) для проверки сертификата исходного сервера.</p></article><article><span class="about-num">03</span><h3>DDoS-архитектура</h3><p>Демо оценки маршрута трафика, доступности origin и ограничений на чувствительных путях.</p></article></div><p class="fineprint">Это выборочный аудит конфигурации, а не гарантия безопасности сайта. Эта страница не обращается к API Cloudflare и не использует токен. Реальная проверка в репозитории выполняет только GET-запросы.</p></section>
+      </div>
+      <footer>Cloudflare Baseline Guard <span>·</span> <a href="https://github.com/Aerix-sys/cloudflare-baseline-guard">Исходный код на GitHub</a></footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+{
+  "secure": {
+    "source": "Demo: secure",
+    "checks": [
+      {
+        "check": "HTTPS redirect",
+        "setting": "always_use_https",
+        "status": "PASS",
+        "expected": "on",
+        "actual": "on"
+      },
+      {
+        "check": "Origin TLS",
+        "setting": "ssl",
+        "status": "PASS",
+        "expected": "strict",
+        "actual": "strict"
+      },
+      {
+        "check": "Minimum TLS",
+        "setting": "min_tls_version",
+        "status": "PASS",
+        "expected": "1.2 or newer",
+        "actual": "1.2"
+      },
+      {
+        "check": "TLS 1.3",
+        "setting": "tls_1_3",
+        "status": "PASS",
+        "expected": "on (without 0-RTT)",
+        "actual": "on"
+      }
+    ],
+    "passed": 4,
+    "total": 4,
+    "report": "# Cloudflare security baseline\n\nSource: `Demo: secure`\n\n| Check | Status | Expected | Actual |\n|---|---|---|---|\n| HTTPS redirect | PASS | on | on |\n| Origin TLS | PASS | strict | strict |\n| Minimum TLS | PASS | 1.2 or newer | 1.2 |\n| TLS 1.3 | PASS | on (without 0-RTT) | on |\n\nResult: **4/4 passed**\n"
+  },
+  "insecure": {
+    "source": "Demo: insecure",
+    "checks": [
+      {
+        "check": "HTTPS redirect",
+        "setting": "always_use_https",
+        "status": "FAIL",
+        "expected": "on",
+        "actual": "off"
+      },
+      {
+        "check": "Origin TLS",
+        "setting": "ssl",
+        "status": "FAIL",
+        "expected": "strict",
+        "actual": "flexible"
+      },
+      {
+        "check": "Minimum TLS",
+        "setting": "min_tls_version",
+        "status": "FAIL",
+        "expected": "1.2 or newer",
+        "actual": "1.0"
+      },
+      {
+        "check": "TLS 1.3",
+        "setting": "tls_1_3",
+        "status": "FAIL",
+        "expected": "on (without 0-RTT)",
+        "actual": "off"
+      }
+    ],
+    "passed": 0,
+    "total": 4,
+    "report": "# Cloudflare security baseline\n\nSource: `Demo: insecure`\n\n| Check | Status | Expected | Actual |\n|---|---|---|---|\n| HTTPS redirect | FAIL | on | off |\n| Origin TLS | FAIL | strict | flexible |\n| Minimum TLS | FAIL | 1.2 or newer | 1.0 |\n| TLS 1.3 | FAIL | on (without 0-RTT) | off |\n\nResult: **0/4 passed**\n"
+  },
+  "ddos_secure": {
+    "source": "Demo: ddos_secure",
+    "checks": [
+      {
+        "check": "Зона активна",
+        "setting": "zone_active",
+        "status": "PASS",
+        "expected": "Домен обслуживается Cloudflare",
+        "actual": "да"
+      },
+      {
+        "check": "Веб-DNS проксируется",
+        "setting": "web_dns_proxied",
+        "status": "PASS",
+        "expected": "HTTP/HTTPS идёт через Cloudflare",
+        "actual": "да"
+      },
+      {
+        "check": "Origin закрыт от прямых запросов",
+        "setting": "origin_restricted",
+        "status": "PASS",
+        "expected": "Прямой доступ к серверу ограничен",
+        "actual": "да"
+      },
+      {
+        "check": "Автоматическая DDoS-защита",
+        "setting": "edge_ddos_active",
+        "status": "PASS",
+        "expected": "Защита Cloudflare применяется к трафику",
+        "actual": "да"
+      },
+      {
+        "check": "Лимит для чувствительных путей",
+        "setting": "sensitive_path_rate_limit",
+        "status": "PASS",
+        "expected": "Установлен лимит для входа/API",
+        "actual": "да"
+      }
+    ],
+    "passed": 5,
+    "total": 5,
+    "report": "# Cloudflare security baseline\n\nSource: `Demo: ddos_secure`\n\n| Check | Status | Expected | Actual |\n|---|---|---|---|\n| Зона активна | PASS | Домен обслуживается Cloudflare | да |\n| Веб-DNS проксируется | PASS | HTTP/HTTPS идёт через Cloudflare | да |\n| Origin закрыт от прямых запросов | PASS | Прямой доступ к серверу ограничен | да |\n| Автоматическая DDoS-защита | PASS | Защита Cloudflare применяется к трафику | да |\n| Лимит для чувствительных путей | PASS | Установлен лимит для входа/API | да |\n\nResult: **5/5 passed**\n"
+  },
+  "ddos_insecure": {
+    "source": "Demo: ddos_insecure",
+    "checks": [
+      {
+        "check": "Зона активна",
+        "setting": "zone_active",
+        "status": "PASS",
+        "expected": "Домен обслуживается Cloudflare",
+        "actual": "да"
+      },
+      {
+        "check": "Веб-DNS проксируется",
+        "setting": "web_dns_proxied",
+        "status": "FAIL",
+        "expected": "HTTP/HTTPS идёт через Cloudflare",
+        "actual": "нет / не подтверждено"
+      },
+      {
+        "check": "Origin закрыт от прямых запросов",
+        "setting": "origin_restricted",
+        "status": "FAIL",
+        "expected": "Прямой доступ к серверу ограничен",
+        "actual": "нет / не подтверждено"
+      },
+      {
+        "check": "Автоматическая DDoS-защита",
+        "setting": "edge_ddos_active",
+        "status": "FAIL",
+        "expected": "Защита Cloudflare применяется к трафику",
+        "actual": "нет / не подтверждено"
+      },
+      {
+        "check": "Лимит для чувствительных путей",
+        "setting": "sensitive_path_rate_limit",
+        "status": "FAIL",
+        "expected": "Установлен лимит для входа/API",
+        "actual": "нет / не подтверждено"
+      }
+    ],
+    "passed": 1,
+    "total": 5,
+    "report": "# Cloudflare security baseline\n\nSource: `Demo: ddos_insecure`\n\n| Check | Status | Expected | Actual |\n|---|---|---|---|\n| Зона активна | PASS | Домен обслуживается Cloudflare | да |\n| Веб-DNS проксируется | FAIL | HTTP/HTTPS идёт через Cloudflare | нет / не подтверждено |\n| Origin закрыт от прямых запросов | FAIL | Прямой доступ к серверу ограничен | нет / не подтверждено |\n| Автоматическая DDoS-защита | FAIL | Защита Cloudflare применяется к трафику | нет / не подтверждено |\n| Лимит для чувствительных путей | FAIL | Установлен лимит для входа/API | нет / не подтверждено |\n\nResult: **1/5 passed**\n"
+  }
+}
