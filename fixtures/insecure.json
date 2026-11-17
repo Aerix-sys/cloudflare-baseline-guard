@@ -1,0 +1,6 @@
+{
+  "always_use_https": "off",
+  "ssl": "flexible",
+  "min_tls_version": "1.0",
+  "tls_1_3": "off"
+}

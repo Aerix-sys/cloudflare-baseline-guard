@@ -1,0 +1,62 @@
+name: Security baseline CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live:
+        description: 'Audit a configured Cloudflare zone'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Run tests
+        run: PYTHONPATH=src python -m unittest discover -s tests -v
+      - name: Audit secure fixture
+        run: PYTHONPATH=src python -m cfguard --fixture fixtures/secure.json --report report.md
+      - name: Generate the complete demo evidence
+        run: PYTHONPATH=src python -m cfguard.demo --output demo-reports
+      - name: Check committed evidence
+        run: diff -ru evidence demo-reports
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: portfolio-demo-reports
+          path: demo-reports/
+
+  # Live audit is opt-in and requires repository secrets CF_ZONE_ID and CF_API_TOKEN.
+  live-audit:
+    if: github.event_name == 'workflow_dispatch' && inputs.live == true
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: cloudflare-audit
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Audit Cloudflare zone
+        env:
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: PYTHONPATH=src python -m cfguard --zone-id "$CF_ZONE_ID" --report live-report.md
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: live-baseline-report
+          path: live-report.md

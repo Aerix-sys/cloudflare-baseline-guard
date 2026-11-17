@@ -1,0 +1,7 @@
+{
+  "zone_active": true,
+  "web_dns_proxied": false,
+  "origin_restricted": false,
+  "edge_ddos_active": false,
+  "sensitive_path_rate_limit": false
+}
