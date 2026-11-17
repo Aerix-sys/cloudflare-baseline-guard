@@ -15,7 +15,7 @@ flowchart LR
 
 The [case study](CASE_STUDY.md) explains the design, security decisions, validation, and limits. [DEMO.md](DEMO.md) gives a reproducible three-minute walkthrough.
 
-The `site/` directory is a static Cloudflare Pages showcase with four precomputed fixture reports. It contains no API token or live audit endpoint. Publish it with no build command and `site` as the output directory; the real-zone auditor remains in the local app and CLI.
+The [public Cloudflare Pages demo](https://cloudflare-baseline-guard.pages.dev/) serves the `site/` directory with four precomputed fixture reports. It contains no API token or live audit endpoint. The real-zone auditor remains in the local app and CLI.
 
 ## Run the app
 

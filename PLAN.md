@@ -8,6 +8,7 @@
 - Offline DDoS architecture fixtures, deterministic reports, unit and HTTP integration tests.
 - Pinned GitHub Actions verification; live audit is manually triggered with a scoped token.
 - Security model, case study, demo guide, and [domain onboarding](DOMAIN_SETUP.md).
+- Public static demo at https://cloudflare-baseline-guard.pages.dev/.
 
 ## Real-world validation
 
